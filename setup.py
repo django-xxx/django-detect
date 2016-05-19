@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
-from setuptools import setup
 
+from setuptools import setup
 
 version = '1.0.3'
 
@@ -10,7 +10,7 @@ setup(
     name='django-detect',
     version=version,
     keywords='django-detect',
-    description="UserAgent Detect",
+    description="Django UserAgent Detect",
     long_description=open('README.rst').read(),
 
     url='https://github.com/Brightcells/django-detect',
