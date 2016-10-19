@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-version = '1.0.5'
+version = '1.0.4'
 
 
 setup(
@@ -19,7 +19,7 @@ setup(
 
     packages=['detect'],
     py_modules=[],
-    install_requires=[],
+    install_requires=['django-six'],
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
