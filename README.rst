@@ -46,7 +46,8 @@ Settings.py
 
 ::
 
-    MIDDLEWARE_CLASSES = (
+    # Use `MIDDLEWARE_CLASSES` prior to Django 1.10
+    MIDDLEWARE = (
         ...
         'detect.middleware.UserAgentDetectionMiddleware',
         ...
