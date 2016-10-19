@@ -2,6 +2,13 @@
 
 import re
 
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    # Not required for Django <= 1.9, see:
+    # https://docs.djangoproject.com/en/1.10/topics/http/middleware/#upgrading-pre-django-1-10-style-middleware
+    MiddlewareMixin = object
+
 
 class ConstExtendIntField(int):
     def __new__(cls, flag, version=''):
@@ -10,7 +17,7 @@ class ConstExtendIntField(int):
         return obj
 
 
-class UserAgentDetectionMiddleware(object):
+class UserAgentDetectionMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         ua = request.META.get('HTTP_USER_AGENT', '').lower()
