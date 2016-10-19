@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import with_statement
 
 from setuptools import setup
 
@@ -18,7 +17,7 @@ setup(
     author='Hackathon',
     author_email='kimi.huang@brightcells.com',
 
-    packages=['detect', ],
+    packages=['detect'],
     py_modules=[],
     install_requires=[],
 
