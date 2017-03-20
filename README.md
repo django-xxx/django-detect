@@ -1,2 +1,2 @@
 # django-detect
-UserAgent Detect
+Django UserAgent Detect

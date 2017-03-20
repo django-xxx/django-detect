@@ -9,7 +9,7 @@ setup(
     name='django-detect',
     version=version,
     keywords='django-detect',
-    description="Django UserAgent Detect",
+    description='Django UserAgent Detect',
     long_description=open('README.rst').read(),
 
     url='https://github.com/Brightcells/django-detect',
