@@ -36,5 +36,9 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         # Weixin/Wechat and Version
         wx = re.findall(r'micromessenger[\s/]([\d.]+)', ua)
         request.weixin = request.wechat = ConstExtendIntField(True, wx[0]) if wx else ConstExtendIntField(False, '')
+        # 截止到 2018-09-11，微信小程序 webview 加载网页 Android 版有该字段，iOS 版没有该字段
+        # Android.*MicroMessenger.*miniProgram
+        # iPhone.*MicroMessenger.*
+        request.miniProgram = 'miniprogram' in ua
 
         return None
