@@ -39,6 +39,8 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         # 截止到 2018-09-11，微信小程序 webview 加载网页 Android 版有该字段，iOS 版没有该字段
         # Android.*MicroMessenger.*miniProgram
         # iPhone.*MicroMessenger.*
-        request.miniProgram = 'miniprogram' in ua
+        request.wxMiniProgram = wx and 'miniprogram' in ua
+        # Toutiao
+        request.ttMiniProgram = request.ttMicroApp = 'toutiaomicroapp' in ua
 
         return None
