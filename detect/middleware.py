@@ -12,6 +12,12 @@ class ConstExtendIntField(int):
         return obj
 
 
+def tfv(ua, pattern='', s=''):
+    """ True/False and Version """
+    matched = re.findall(pattern, ua)
+    return ConstExtendIntField(True, matched[0]) if matched else ConstExtendIntField(s in ua, '')
+
+
 class UserAgentDetectionMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
@@ -28,23 +34,27 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.PC = request.Windows or request.Linux or request.iMac
         # iOS
         request.iOS = request.iPhone or request.iPad or request.iMac or request.iPod
-        # Android and Version
-        adr = re.findall(r'android ([\d.]+)', ua)
-        request.Android = ConstExtendIntField(True, adr[0]) if adr else ConstExtendIntField('android' in ua, '')
+        # Android
+        request.Android = tfv(ua, pattern=r'android ([\d.]+)', s='android')
 
         # ####### APP #######
-        # Weixin/Wechat and Version
-        wx = re.findall(r'micromessenger[\s/]([\d.]+)', ua)
-        request.weixin = request.wechat = ConstExtendIntField(True, wx[0]) if wx else ConstExtendIntField(False, '')
-        # Weixin/Wechat Work and Version
-        wxwork = re.findall(r'wxwork[\s/]([\d.]+)', ua)
-        request.wxwork = ConstExtendIntField(True, wxwork[0]) if wxwork else ConstExtendIntField(False, '')
-        # 截止到 2018-09-11，微信小程序 webview 加载网页 Android 版有该字段，iOS 版没有该字段
+        # 阿里 / Ali
+        # 钉钉 / DingDing
+        request.dd = request.ding = tfv(ua, pattern=r'dingtalk[\s/]([\d.]+)', s='dingtalk')
+
+        # 腾讯 / Tencent
+        # 微信 / Weixin/Wechat
+        request.wx = request.weixin = request.wechat = tfv(ua, pattern=r'micromessenger[\s/]([\d.]+)', s='micromessenger')
+        # 企业微信 / Weixin/Wechat Work
+        request.wxwork = tfv(ua, pattern=r'wxwork[\s/]([\d.]+)', s='wxwork')
+        # 微信小程序 / Weixin/Wechat MiniProgram
+        # TODO: 截止到 2018-09-11，微信小程序 webview 加载网页 Android 版有该字段，iOS 版没有该字段
         # Android.*MicroMessenger.*miniProgram
         # iPhone.*MicroMessenger.*
-        request.wxMiniProgram = wx and 'miniprogram' in ua
-        # Toutiao
-        ttmicro = re.findall(r'toutiaomicroapp[\s/]([\d.]+)', ua)
-        request.ttMiniProgram = request.ttMicroApp = ConstExtendIntField(True, ttmicro[0]) if ttmicro else ConstExtendIntField(False, '')
+        request.wxMiniProgram = request.wx and 'miniprogram' in ua
+
+        # 头条 / Toutiao
+        # 头条小程序 / Toutiao MiniProgram
+        request.ttMiniProgram = request.ttMicroApp = tfv(ua, pattern=r'toutiaomicroapp[\s/]([\d.]+)', s='toutiaomicroapp')
 
         return None
