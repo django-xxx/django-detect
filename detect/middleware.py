@@ -57,4 +57,12 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         # 头条小程序 / Toutiao MiniProgram
         request.ttMiniProgram = request.ttMicroApp = tfv(ua, pattern=r'toutiaomicroapp[\s/]([\d.]+)', s='toutiaomicroapp')
 
+        # ####### Crawler #######
+        # curl/7.50.1
+        request.curl = 'curl' in ua
+        # python - requests / 2.19.1
+        request.requests = 'requests' in ua
+        # Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)
+        request.Baiduspider = 'baiduspider' in ua
+
         return None
