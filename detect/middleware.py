@@ -38,6 +38,12 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.Android = tfv(ua, pattern=r'android ([\d.]+)', s='android')
 
         # ####### APP #######
+        # 百度 / Baidu
+        # 百度APP / BaiduBoxApp
+        request.bd = request.baidu = tfv(ua, pattern=r'baiduboxapp[\s/]([\d.]+)', s='baiduboxapp')
+        # 百度智能小程序 / Swan
+        request.bdMiniProgram = request.bdSmartProgram = tfv(ua, pattern=r'swan[\s/]([\d.]+)', s='swan')
+
         # 阿里 / Ali
         # 钉钉 / DingDing
         request.dd = request.ding = tfv(ua, pattern=r'dingtalk[\s/]([\d.]+)', s='dingtalk')
