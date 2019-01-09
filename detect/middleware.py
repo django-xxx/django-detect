@@ -54,9 +54,11 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         # 企业微信 / Weixin/Wechat Work
         request.wxwork = tfv(ua, pattern=r'wxwork[\s/]([\d.]+)', s='wxwork')
         # 微信小程序 / Weixin/Wechat MiniProgram
-        # TODO: 截止到 2018-09-11，微信小程序 webview 加载网页 Android 版有该字段，iOS 版没有该字段
+        # Refer: https://developers.weixin.qq.com/community/develop/doc/000688811bc278ab99f69ff1256000
         # Android.*MicroMessenger.*miniProgram
         # iPhone.*MicroMessenger.*
+        # Refer: https://developers.weixin.qq.com/community/develop/doc/00044454a102f8ccf2d70d09b5b000
+        # 微信 7.0 起小程序内嵌 web-view 的 UA 带上了 miniProgram 标识
         request.wxMiniProgram = request.wx and 'miniprogram' in ua
 
         # 头条 / Toutiao
