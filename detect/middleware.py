@@ -62,6 +62,8 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.wxMiniProgram = request.wx and 'miniprogram' in ua
 
         # 头条 / Toutiao
+        # 头条 IDE
+        request.ttIDE = tfv(ua, pattern=r'bytedanceide[\s/]([\d.]+)', s='bytedanceide')
         # 头条小程序 / Toutiao MiniProgram
         request.ttMiniProgram = request.ttMicroApp = tfv(ua, pattern=r'toutiaomicroapp[\s/]([\d.]+)', s='toutiaomicroapp')
 
