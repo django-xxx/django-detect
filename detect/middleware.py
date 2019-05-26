@@ -61,9 +61,11 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         # 微信 7.0 起小程序内嵌 web-view 的 UA 带上了 miniProgram 标识
         request.wxMiniProgram = request.wx and 'miniprogram' in ua
 
-        # 头条 / Toutiao
-        # 头条 IDE
+        # 字节跳动 / ByteDance
+        # 字节跳动 IDE
         request.ttIDE = tfv(ua, pattern=r'bytedanceide[\s/]([\d.]+)', s='bytedanceide')
+        # 头条 / Toutiao
+        request.tt = request.toutiao = tfv(ua, pattern=r'newsarticle[\s/]([\d.]+)', s='newsarticle')
         # 头条小程序 / Toutiao MiniProgram
         request.ttMiniProgram = request.ttMicroApp = tfv(ua, pattern=r'toutiaomicroapp[\s/]([\d.]+)', s='toutiaomicroapp')
 
