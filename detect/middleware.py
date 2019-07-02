@@ -51,6 +51,9 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         # 腾讯 / Tencent
         # 微信 / Weixin/Wechat
         request.wx = request.weixin = request.wechat = tfv(ua, pattern=r'micromessenger[\s/]([\d.]+)', s='micromessenger')
+        request.PCWechat = tfv(ua, pattern=r'windowswechat[\s/]([\d.]+)', s='windowswechat')
+        request.MacWechat = tfv(ua, pattern=r'macwechat[\s/]([\d.]+)', s='macwechat')
+        request.WindowsWechat = request.PCWechat and not request.MacWechat
         # 企业微信 / Weixin/Wechat Work
         request.wxwork = tfv(ua, pattern=r'wxwork[\s/]([\d.]+)', s='wxwork')
         # 微信小程序 / Weixin/Wechat MiniProgram
