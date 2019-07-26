@@ -2,6 +2,7 @@
 
 import re
 
+from django.conf import settings
 from django_six import MiddlewareMixin
 
 
@@ -79,5 +80,11 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.requests = 'requests' in ua
         # Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)
         request.Baiduspider = 'baiduspider' in ua
+
+        exts = {}
+        if hasattr(settings, 'DJANGO_DETECT_EXT_FUNC') and hasattr(settings.DJANGO_DETECT_EXT_FUNC, '__call__'):
+            exts = settings.DJANGO_DETECT_EXT_FUNC() or {}
+        for k, v in exts.items():
+            setattr(request, k, v)
 
         return None
