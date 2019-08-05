@@ -83,7 +83,7 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
 
         exts = {}
         if hasattr(settings, 'DJANGO_DETECT_EXT_FUNC') and hasattr(settings.DJANGO_DETECT_EXT_FUNC, '__call__'):
-            exts = settings.DJANGO_DETECT_EXT_FUNC() or {}
+            exts = settings.DJANGO_DETECT_EXT_FUNC(request) or {}
         for k, v in exts.items():
             setattr(request, k, v)
 
