@@ -22,7 +22,11 @@ def tfv(ua, pattern='', s=''):
 class UserAgentDetectionMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
-        ua = request.META.get('HTTP_USER_AGENT', '').lower()
+        raw_ua = request.META.get('HTTP_USER_AGENT', '')
+        ua = raw_ua.lower()
+
+        request.raw_ua = raw_ua
+        request.ua = ua
 
         # ####### Device、OS #######
         # Windows
