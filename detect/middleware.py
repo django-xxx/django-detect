@@ -33,12 +33,14 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.Windows = 'windows nt' in ua
         # Linux
         request.Linux = 'linux x86_64' in ua
-        # iMac、iPhone、iPad、iPod
-        request.iMac, request.iPhone, request.iPad, request.iPod = 'macintosh' in ua, 'iphone' in ua, 'ipad' in ua, 'ipod' in ua
+        # macOS
+        request.macOS = request.iMac = 'macintosh' in ua
+        # iPhone、iPad、iPod
+        request.iPhone, request.iPad, request.iPod = 'iphone' in ua, 'ipad' in ua, 'ipod' in ua
         # PC
-        request.PC = request.Windows or request.Linux or request.iMac
+        request.PC = request.Windows or request.Linux or request.iMac or request.macOS
         # iOS
-        request.iOS = request.iPhone or request.iPad or request.iMac or request.iPod
+        request.iOS = request.iPhone or request.iPad or request.iPod
         # Android
         request.Android = tfv(ua, pattern=r'android ([\d.]+)', s='android')
 
