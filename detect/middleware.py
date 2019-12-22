@@ -56,6 +56,10 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.dd = request.ding = tfv(ua, pattern=r'dingtalk[\s/]([\d.]+)', s='dingtalk')
 
         # 腾讯 / Tencent
+        # QQ
+        # Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 QQ/8.2.0.617 V1_IPH_SQ_8.2.0_1_APP_A Pixel/750 Core/WKWebView Device/Apple(iPhone 6) NetType/WIFI QBWebViewType/1 WKType/1
+        # Mozilla/5.0 (Linux; Android 8.0.0; MIX 2 Build/OPR1.170623.027; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/045008 Mobile Safari/537.36 V1_AND_SQ_8.2.0_1296_YYB_D QQ/8.2.0.4310 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/66 SimpleUISwitch/0
+        request.qq = tfv(ua, pattern=r' qq/([\d.]+)', s=' qq/')
         # 微信 / Weixin/Wechat
         request.wx = request.weixin = request.wechat = tfv(ua, pattern=r'micromessenger[\s/]([\d.]+)', s='micromessenger')
         request.pcwx = request.PCWechat = tfv(ua, pattern=r'windowswechat[\s/]([\d.]+)', s='windowswechat')
