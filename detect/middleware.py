@@ -53,7 +53,7 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
 
         # 阿里 / Ali
         # 钉钉 / DingDing
-        request.dd = request.ding = tfv(ua, pattern=r'dingtalk[\s/]([\d.]+)', s='dingtalk')
+        request.dd = request.ding = request.dingtalk = tfv(ua, pattern=r'dingtalk[\s/]([\d.]+)', s='dingtalk')
 
         # 腾讯 / Tencent
         # QQ
