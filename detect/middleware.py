@@ -82,6 +82,10 @@ class UserAgentDetectionMiddleware(MiddlewareMixin):
         request.tt = request.toutiao = tfv(ua, pattern=r'newsarticle[\s/]([\d.]+)', s='newsarticle')
         # 头条小程序 / Toutiao MiniProgram
         request.ttMiniProgram = request.ttMicroApp = tfv(ua, pattern=r'toutiaomicroapp[\s/]([\d.]+)', s='toutiaomicroapp')
+        # 飞书 IDE
+        request.fsIDE = tfv(ua, pattern=r'feishuide[\s/]([\d.]+)', s='feishuide')
+        # 飞书小程序 / Feishu MiniProgram
+        request.fsMiniProgram = request.fsMicroApp = request.eeMiniProgram = request.eeMicroApp = tfv(ua, pattern=r'eemicroapp[\s/]([\d.]+)', s='eemicroapp')
 
         # ####### Crawler #######
         # curl/7.50.1
